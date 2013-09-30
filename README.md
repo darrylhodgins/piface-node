@@ -11,7 +11,6 @@ Get the Piface C libraries
 --------------------------
 First, you'll need the C libraries, available [here](https://github.com/thomasmacpherson/piface).  Follow the "C" library installation, naturally.
 
-
 Get the NPM module
 ------------------
 ```bash
@@ -24,12 +23,14 @@ It's not quite as easy to install [Node.js](http://nodejs.org/) on a Raspberry P
 
 Using piface-node
 =================
-Something along these lines should do it:
+I've intended this to be used with the full awesome power of Node's EventEmitter.  You can easily wire up the physical I/O on the Piface with pretty much anything.
+
+Here's a basic example of the usage, in lieu of actual documentation.  There are also a few examples in the examples folder.
 
 ```js
-var pfio = require('/path/to/build/Release/pfio');
+var pfio = require('piface-node');
 pfio.init();
-pfio.digital_write(0,1);
-var foo = pfio.digital_read(0);
+pfio.digital_write(0,1); // (pin, state)
+var foo = pfio.digital_read(0); // (pin; returns state)
 pfio.deinit();
 ```
