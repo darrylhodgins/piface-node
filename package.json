@@ -1,0 +1,23 @@
+{
+	"name": "piface-node",
+	"description": "Raspberry Pi Piface Addon",
+	"version": "0.0.1",
+	"keywords": [
+		"piface",
+		"raspberry pi"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/darrylhodgins/piface-node.git"
+	},
+	"author": {
+		"name": "Darryl Hodgins",
+		"email": "darrylh@darrylh.ca"
+	},
+	"main": "./build/Release/pfio",
+	"engines": {
+		"node": ">= 0.10.17"
+	},
+	"dependencies": {},
+	"private": false
+}
