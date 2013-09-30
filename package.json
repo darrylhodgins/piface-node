@@ -1,7 +1,7 @@
 {
 	"name": "piface-node",
 	"description": "Raspberry Pi Piface Addon",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"keywords": [
 		"piface",
 		"raspberry pi"
@@ -18,6 +18,11 @@
 	"engines": {
 		"node": ">= 0.10.17"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"node-gyp": "0.10.10"
+	},
+	"scripts": {
+		"install": "node-gyp rebuild"
+	},
 	"private": false
 }
