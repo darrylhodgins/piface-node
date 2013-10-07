@@ -1,7 +1,7 @@
 var pfio = require('../build/Release/pfio');
-var EventBus = require('./eventBus');
+var EventBus = require('./EventBus');
 
-var prev_state = [];
+var prev_state = 0;
 
 // Watch for Ctrl+C
 process.on('SIGINT', stopListening);
@@ -24,12 +24,10 @@ function stopListening() {
 // Watches for state changes
 function watchInputs() {
 	var state;
-	for (var pin = 0; pin < 8; pin++) {
-		state = pfio.digital_read(pin);
-		if (state !== prev_state[pin]) {
-			prev_state[pin] = state;
-			EventBus.emit('pfio.input.changed', pin, state);
-		}
+	state = pfio.read_input();
+	if (state !== prev_state) {
+		EventBus.emit('pfio.inputs.changed', state, prev_state);
+		prev_state = state;
 	}
 	setTimeout(watchInputs, 10);
 }
