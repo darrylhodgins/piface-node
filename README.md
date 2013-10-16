@@ -2,10 +2,39 @@ About
 =====
 Interface to the Raspberry Pi Piface board using Node.js.  This addon shouldn't require any sudo or root privileges to run, as long as your user is in the "spi" group on your Pi (handled by the spidev-setup script).
 
-Note: I've been playing a bit too much with the Pi, so these notes might be missing a few steps.
-
 Installation
 ============
+Assuming a fresh Raspbian install, there are three steps to getting a project off the ground with piface-node.
+  - Get Node.js
+  - Get the Piface C libraries
+  - Get the piface-node module with NPM
+
+Get Node.js
+-----------
+It's not quite as easy to install [Node.js](http://nodejs.org/) on a Raspberry Pi as it is on other platforms, so you might need to dig around to find the newest available version for the Pi's architecture.  At the time I write this, the latest available packaged build for Raspberry Pi is [v0.10.20](http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz).  v0.10.17 and v0.10.20 are the only versions I've tested this on, but if you have success on other versions, please let me know!
+
+```bash
+$ wget http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz
+$ tar -zxvf node-v0.10.20-linux-arm-pi.tar.gz
+$ sudo mkdir /opt/node
+$ sudo cp -r node-v0.10.20-linux-arm-pi/* /opt/node
+```
+
+At this point, you probably don't need the node distribution files after installation, as the important stuff got copied into /opt/node.  To free up disk space, I like to remove both the tarfile and the extracted files, but that's entirely your choice.
+
+Add the Node.js path to your default profile.  Use nano instead of vi if you like, but vi is old-school and awesome.  If you want to impress your friends, learn how to use vi ;)
+```bash
+$ sudo vi /etc/profile
+```
+
+Add the following lines to the configuration file before the ‘export’ command.
+```
+NODE_JS_HOME="/opt/node"
+PATH="$PATH:$NODE_JS_HOME/bin"
+export PATH
+```
+
+Log out and back in again for the /etc/profile changes to take effect.
 
 Get the Piface C libraries
 --------------------------
@@ -23,33 +52,19 @@ $ cd ../scripts
 $ sudo ./spidev-setup
 ```
 
-Get the NPM module
-------------------
+Get the piface-node module with NPM
+-----------------------------------
 ```bash
 $ mkdir ~/my_project
 $ cd ~/my_project
 $ npm install piface-node
 ```
 
-A note on running Node.js on the Raspberry Pi
----------------------------------------------
-It's not quite as easy to install [Node.js](http://nodejs.org/) on a Raspberry Pi as it is on other platforms, so you might need to dig around to find the newest available version for the Pi's architecture.  At the time I write this, the latest available packaged build for Raspberry Pi is [v0.10.20](http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz).  v0.10.17 and v0.10.20 are the only versions I've tested this on, but if you have success on other versions, please let me know!
-
-```bash
-$ wget http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz
-$ tar -zxvf node-v0.10.20-linux-arm-pi.tar.gz
-$ sudo mkdir /opt/node
-$ sudo cp -r node-v0.10.20-linux-arm-pi/* /opt/node
-```
-
-You probably don't need the node distribution files after installation, since the important stuff got copied into /opt/node.  I like to remove them, but that's entirely your choice.
-
 Using piface-node
 =================
 I've intended this to be used with the full awesome power of Node's EventEmitter.  You can easily wire up the physical I/O on the Piface with pretty much anything.
 
 Here's a basic example of the usage, in lieu of actual documentation.  There are also a few examples in the examples folder.
-
 ```js
 var pfio = require('piface-node');
 pfio.init();
