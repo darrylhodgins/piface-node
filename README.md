@@ -36,6 +36,23 @@ export PATH
 
 Log out and back in again for the /etc/profile changes to take effect.
 
+Make sure your SPI driver is loaded
+-----------------------------------
+If this is the first time you've plugged in your Piface board, you'll need to update the modprobe configuration so that it loads the SPI driver.  This will enable the driver on reboot.
+
+```bash
+$ sudo nano /etc/modprobe.d/raspi-blacklist.conf
+```
+
+Insert a hash (#) at the beginning of the line containing spi-bcm2708, so it reads:
+
+```
+#spi-bcm2708
+```
+
+...And reboot to make it take effect.
+
+
 Get the Piface C libraries
 --------------------------
 First, you'll need the C libraries, available [here](https://github.com/thomasmacpherson/piface).  Follow the "C" library installation, naturally.
@@ -80,3 +97,12 @@ var foo = pfio.read_input(); // bit-mapped
 pfio.write_output(255); // that's binary 11111111, so it'll turn all outputs on.
 pfio.deinit();
 ```
+
+The Examples Folder
+-------------------
+Everything in the example application is modular and decoupled: most of the components don't even know that the other ones exist. They only communicate through the EventBus. All that example.js does is start up those modules.  The example application watches for changes on the input pins, and echoes them to the output pins.  Try it out by pressing the tactile switches.
+
+```bash
+$ cd node_modules/piface-node/examples
+$ node example.js
+````
