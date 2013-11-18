@@ -11,13 +11,13 @@ Assuming a fresh Raspbian install, there are three steps to getting a project of
 
 Get Node.js
 -----------
-It's not quite as easy to install [Node.js](http://nodejs.org/) on a Raspberry Pi as it is on other platforms, so you might need to dig around to find the newest available version for the Pi's architecture.  At the time I write this, the latest available packaged build for Raspberry Pi is [v0.10.20](http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz).  v0.10.17 and v0.10.20 are the only versions I've tested this on, but if you have success on other versions, please let me know!
+It's not quite as easy to install [Node.js](http://nodejs.org/) on a Raspberry Pi as it is on other platforms, so you might need to dig around to find the newest available version for the Pi's architecture.  At the time I write this, the latest available packaged build for Raspberry Pi is [v0.10.21](http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz).
 
 ```bash
-$ wget http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-arm-pi.tar.gz
-$ tar -zxvf node-v0.10.20-linux-arm-pi.tar.gz
+$ wget http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz
+$ tar -zxvf node-v0.10.21-linux-arm-pi.tar.gz
 $ sudo mkdir /opt/node
-$ sudo cp -r node-v0.10.20-linux-arm-pi/* /opt/node
+$ sudo cp -r node-v0.10.21-linux-arm-pi/* /opt/node
 ```
 
 At this point, you probably don't need the node distribution files after installation, as the important stuff got copied into /opt/node.  To free up disk space, I like to remove both the tarfile and the extracted files, but that's entirely your choice.
