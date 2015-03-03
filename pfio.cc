@@ -16,12 +16,6 @@ NAN_METHOD(PfioInit) {
 	NanReturnUndefined();
 }
 
-// Handle<Value> PfioInit(const Arguments& args) {
-// 	NanScope();
-// 	pfio_init();
-// 	return scope.Close(Undefined());
-// }
-
 NAN_METHOD(PfioDeinit) {
 
 	NanScope();
@@ -30,20 +24,6 @@ NAN_METHOD(PfioDeinit) {
 
 	NanReturnUndefined();
 }
-
-// Handle<Value> PfioDeinit(const Arguments& args) {
-// 	NanScope();
-// 	pfio_deinit();
-// 	return scope.Close(Undefined());
-// }
-
-// Handle<Value> PfioDigitalRead(const Arguments& args) {
-// 	NanScope();
-// 	// uint8_t pin = Integer::New(args[0]->IntegerValue())->Value();
-// 	uint8_t pin = args[0]->Uint32Value();
-// 	uint8_t result = pfio_digital_read(pin);
-// 	return scope.Close(Integer::New(result));
-// }
 
 NAN_METHOD(PfioDigitalRead) {
 
@@ -54,16 +34,6 @@ NAN_METHOD(PfioDigitalRead) {
 
 	NanReturnValue(NanNew<Number>(result));
 }
-
-// Handle<Value> PfioDigitalWrite(const Arguments& args) {
-// 	NanScope();
-// 	// uint8_t pin = Integer::New(args[0]->IntegerValue())->Value();
-// 	uint8_t pin = args[0]->Uint32Value();
-// 	// uint8_t val = Integer::New(args[1]->IntegerValue())->Value();
-// 	uint8_t val = args[1]->Uint32Value();
-// 	pfio_digital_write(pin, val);
-// 	return scope.Close(Undefined());
-// }
 
 NAN_METHOD(PfioDigitalWrite) {
 
@@ -76,12 +46,6 @@ NAN_METHOD(PfioDigitalWrite) {
 	NanReturnUndefined();
 }
 
-// Handle<Value> PfioReadInput(const Arguments& args) {
-// 	NanScope();
-// 	uint8_t val = pfio_read_input();
-// 	return scope.Close(Integer::New(val));
-// }
-
 NAN_METHOD(PfioReadInput) {
 
 	NanScope();
@@ -91,12 +55,6 @@ NAN_METHOD(PfioReadInput) {
 	NanReturnValue(NanNew<Number>(val));
 }
 
-// Handle<Value> PfioReadOutput(const Arguments& args) {
-// 	NanScope();
-// 	uint8_t val = pfio_read_output();
-// 	return scope.Close(Integer::New(val));
-// }
-
 NAN_METHOD(PfioReadOutput) {
 
 	NanScope();
@@ -105,14 +63,6 @@ NAN_METHOD(PfioReadOutput) {
 
 	NanReturnValue(NanNew<Number>(val));
 }
-
-// Handle<Value> PfioWriteOutput(const Arguments& args) {
-// 	NanScope();
-// 	// uint8_t val = Integer::New(args[0]->IntegerValue())->Value();
-// 	uint8_t val = args[0]->Uint32Value();
-// 	pfio_write_output(val);
-// 	return scope.Close(Undefined());
-// }
 
 NAN_METHOD(PfioWriteOutput) {
 
@@ -144,4 +94,3 @@ void init(Handle<Object> exports) {
 }
 
 NODE_MODULE(pfio, init);
-
