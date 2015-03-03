@@ -19,6 +19,7 @@
 		"node": ">= 0.10.17"
 	},
 	"dependencies": {
+		"nan": "^1.7.0",
 		"node-gyp": "0.10.10"
 	},
 	"scripts": {
