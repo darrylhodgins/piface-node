@@ -1,71 +1,96 @@
 #include <node.h>
+#include <nan.h>
+
 #include <v8.h>
 #include <libpiface-1.0/pfio.h>
+#include <string.h>
 
 using namespace v8;
 
-Handle<Value> PfioInit(const Arguments& args) {
-	HandleScope scope;
+NAN_METHOD(PfioInit) {
+
+	NanScope();
+
 	pfio_init();
-	return scope.Close(Undefined());
+
+	NanReturnUndefined();
 }
 
-Handle<Value> PfioDeinit(const Arguments& args) {
-	HandleScope scope;
+NAN_METHOD(PfioDeinit) {
+
+	NanScope();
+
 	pfio_deinit();
-	return scope.Close(Undefined());
+
+	NanReturnUndefined();
 }
 
-Handle<Value> PfioDigitalRead(const Arguments& args) {
-	HandleScope scope;
-	uint8_t pin = Integer::New(args[0]->IntegerValue())->Value();
+NAN_METHOD(PfioDigitalRead) {
+
+	NanScope();
+
+	uint8_t pin = args[0]->Uint32Value();
 	uint8_t result = pfio_digital_read(pin);
-	return scope.Close(Integer::New(result));
+
+	NanReturnValue(NanNew<Number>(result));
 }
 
-Handle<Value> PfioDigitalWrite(const Arguments& args) {
-	HandleScope scope;
-	uint8_t pin = Integer::New(args[0]->IntegerValue())->Value();
-	uint8_t val = Integer::New(args[1]->IntegerValue())->Value();
+NAN_METHOD(PfioDigitalWrite) {
+
+	NanScope();
+
+	uint8_t pin = args[0]->Uint32Value();
+	uint8_t val = args[1]->Uint32Value();
 	pfio_digital_write(pin, val);
-	return scope.Close(Undefined());
+
+	NanReturnUndefined();
 }
 
-Handle<Value> PfioReadInput(const Arguments& args) {
-	HandleScope scope;
+NAN_METHOD(PfioReadInput) {
+
+	NanScope();
+
 	uint8_t val = pfio_read_input();
-	return scope.Close(Integer::New(val));
+
+	NanReturnValue(NanNew<Number>(val));
 }
 
-Handle<Value> PfioReadOutput(const Arguments& args) {
-	HandleScope scope;
+NAN_METHOD(PfioReadOutput) {
+
+	NanScope();
+
 	uint8_t val = pfio_read_output();
-	return scope.Close(Integer::New(val));
+
+	NanReturnValue(NanNew<Number>(val));
 }
 
-Handle<Value> PfioWriteOutput(const Arguments& args) {
-	HandleScope scope;
-	uint8_t val = Integer::New(args[0]->IntegerValue())->Value();
+NAN_METHOD(PfioWriteOutput) {
+
+	NanScope();
+
+	uint8_t val = args[0]->Uint32Value();
 	pfio_write_output(val);
-	return scope.Close(Undefined());
+
+	NanReturnUndefined();
 }
 
 void init(Handle<Object> exports) {
-	exports->Set(String::NewSymbol("init"),
-		FunctionTemplate::New(PfioInit)->GetFunction());
-	exports->Set(String::NewSymbol("deinit"),
-		FunctionTemplate::New(PfioDeinit)->GetFunction());
-	exports->Set(String::NewSymbol("digital_read"),
-		FunctionTemplate::New(PfioDigitalRead)->GetFunction());
-	exports->Set(String::NewSymbol("digital_write"),
-		FunctionTemplate::New(PfioDigitalWrite)->GetFunction());
-	exports->Set(String::NewSymbol("read_input"),
-		FunctionTemplate::New(PfioReadInput)->GetFunction());
-	exports->Set(String::NewSymbol("read_output"),
-		FunctionTemplate::New(PfioReadOutput)->GetFunction());
-	exports->Set(String::NewSymbol("write_output"),
-		FunctionTemplate::New(PfioWriteOutput)->GetFunction());
+
+	exports->Set(NanNew<String>("init"),
+		NanNew<FunctionTemplate>(PfioInit)->GetFunction());
+	exports->Set(NanNew<String>("deinit"),
+		NanNew<FunctionTemplate>(PfioDeinit)->GetFunction());
+	exports->Set(NanNew<String>("digital_read"),
+		NanNew<FunctionTemplate>(PfioDigitalRead)->GetFunction());
+	exports->Set(NanNew<String>("digital_write"),
+		NanNew<FunctionTemplate>(PfioDigitalWrite)->GetFunction());
+	exports->Set(NanNew<String>("read_input"),
+		NanNew<FunctionTemplate>(PfioReadInput)->GetFunction());
+	exports->Set(NanNew<String>("read_output"),
+		NanNew<FunctionTemplate>(PfioReadOutput)->GetFunction());
+	exports->Set(NanNew<String>("write_output"),
+		NanNew<FunctionTemplate>(PfioWriteOutput)->GetFunction());
+
 }
 
 NODE_MODULE(pfio, init);
-
