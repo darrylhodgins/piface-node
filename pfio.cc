@@ -9,87 +9,87 @@ using namespace v8;
 
 NAN_METHOD(PfioInit) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
 	pfio_init();
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(PfioDeinit) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
 	pfio_deinit();
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(PfioDigitalRead) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
-	uint8_t pin = args[0]->Uint32Value();
+	uint8_t pin = info[0]->Uint32Value();
 	uint8_t result = pfio_digital_read(pin);
 
-	NanReturnValue(NanNew<Number>(result));
+	info.GetReturnValue().Set(Nan::New<Number>(result));
 }
 
 NAN_METHOD(PfioDigitalWrite) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
-	uint8_t pin = args[0]->Uint32Value();
-	uint8_t val = args[1]->Uint32Value();
+	uint8_t pin = info[0]->Uint32Value();
+	uint8_t val = info[1]->Uint32Value();
 	pfio_digital_write(pin, val);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(PfioReadInput) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
 	uint8_t val = pfio_read_input();
 
-	NanReturnValue(NanNew<Number>(val));
+	info.GetReturnValue().Set(Nan::New<Number>(val));
 }
 
 NAN_METHOD(PfioReadOutput) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
 	uint8_t val = pfio_read_output();
 
-	NanReturnValue(NanNew<Number>(val));
+	info.GetReturnValue().Set(Nan::New<Number>(val));
 }
 
 NAN_METHOD(PfioWriteOutput) {
 
-	NanScope();
+	Nan::HandleScope scope;
 
-	uint8_t val = args[0]->Uint32Value();
+	uint8_t val = info[0]->Uint32Value();
 	pfio_write_output(val);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
-void init(Handle<Object> exports) {
+NAN_MODULE_INIT(init) {
 
-	exports->Set(NanNew<String>("init"),
-		NanNew<FunctionTemplate>(PfioInit)->GetFunction());
-	exports->Set(NanNew<String>("deinit"),
-		NanNew<FunctionTemplate>(PfioDeinit)->GetFunction());
-	exports->Set(NanNew<String>("digital_read"),
-		NanNew<FunctionTemplate>(PfioDigitalRead)->GetFunction());
-	exports->Set(NanNew<String>("digital_write"),
-		NanNew<FunctionTemplate>(PfioDigitalWrite)->GetFunction());
-	exports->Set(NanNew<String>("read_input"),
-		NanNew<FunctionTemplate>(PfioReadInput)->GetFunction());
-	exports->Set(NanNew<String>("read_output"),
-		NanNew<FunctionTemplate>(PfioReadOutput)->GetFunction());
-	exports->Set(NanNew<String>("write_output"),
-		NanNew<FunctionTemplate>(PfioWriteOutput)->GetFunction());
+	Nan::Set(target, Nan::New<String>("init").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioInit)->GetFunction());
+	Nan::Set(target, Nan::New<String>("deinit").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioDeinit)->GetFunction());
+	Nan::Set(target, Nan::New<String>("digital_read").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioDigitalRead)->GetFunction());
+	Nan::Set(target, Nan::New<String>("digital_write").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioDigitalWrite)->GetFunction());
+	Nan::Set(target, Nan::New<String>("read_input").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioReadInput)->GetFunction());
+	Nan::Set(target, Nan::New<String>("read_output").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioReadOutput)->GetFunction());
+	Nan::Set(target, Nan::New<String>("write_output").ToLocalChecked(),
+		Nan::New<FunctionTemplate>(PfioWriteOutput)->GetFunction());
 
 }
 
