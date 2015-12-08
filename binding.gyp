@@ -6,7 +6,8 @@
 			"sources": [ "pfio.cc" ],
 			'link_settings': {
           			'libraries': [
-              				'-lpiface-1.0'
+              				'-lpifacedigital',
+              				'-lmcp23s17'
 				]
 			}
 		}
