@@ -1,29 +1,27 @@
 {
-	"name": "piface-node",
-	"description": "Raspberry Pi Piface Addon",
-	"version": "0.0.6",
-	"keywords": [
-		"piface",
-		"raspberry pi"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/darrylhodgins/piface-node.git"
-	},
-	"author": {
-		"name": "Darryl Hodgins",
-		"email": "darrylh@darrylh.ca"
-	},
-	"main": "./build/Release/pfio",
-	"engines": {
-		"node": ">= 0.10.17"
-	},
-	"dependencies": {
-		"nan": "^1.7.0",
-		"node-gyp": "0.10.10"
-	},
-	"scripts": {
-		"install": "node-gyp rebuild"
-	},
-	"private": false
+  "name": "piface-node",
+  "description": "Raspberry Pi Piface Addon",
+  "version": "0.1.1",
+  "keywords": [
+    "piface",
+    "raspberry pi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darrylhodgins/piface-node.git"
+  },
+  "author": {
+    "name": "Darryl Hodgins",
+    "email": "darrylh@darrylh.ca"
+  },
+  "main": "./lib/pfio",
+  "engines": {
+    "node": ">= 4.2.1"
+  },
+  "dependencies": {
+    "pi-spi": "^1.0.1",
+    "rx": "^4.1.0"
+  },
+  "scripts": {},
+  "private": false
 }
